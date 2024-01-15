@@ -11,8 +11,10 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+  <body class="flex h-screen">
+    <aside class="bg-zinc-800 w-72">
+    </aside>
+    <main class="bg-neutral-100 flex-grow overflow-y-auto">
       <%= yield %>
     </main>
   </body>
