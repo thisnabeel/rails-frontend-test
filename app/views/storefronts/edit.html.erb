@@ -1,14 +1,24 @@
-<div class="w-full p-6">
+<div class="w-full p-6 relative h-full" data-controller="modal sortable reason" data-storefront-id="<%= @storefront.id %>">
   <h1 class="text-3xl font-bold">Returns</h1>
 
   <fieldset class="bg-white p-4 my-5 flex rounded-xl shadow-md">
-    <div>
+    <div class="w-2/4 px-3">
       <legend class="font-bold text-xl">Return Reasons</legend>
       Add or edit return reasons you would like to show the customers during the return request process.
     </div>
 
-    <div class="bg-slate-100">
-      <%= render "form", storefront: @storefront %>
+    <div class="flex-grow">
+      <%= turbo_frame_tag "reasons-list" do %>
+        <%= render "reasons", reasons: @storefront.reasons.ordered, storefront: @storefront %>
+      <% end %>
     </div>
   </fieldset>
+
+
+  <%= turbo_frame_tag "edit-reason-modal" %>
+
+  <div class="absolute bottom-0 left-0 right-0 p-6 bg-white shadow-md flex">
+    Remember to save your changes before leaving this page
+    <span class="ml-auto bg-yellow-200 px-3 py-2 rounded-md" data-action="click->reason#publish_draft">Save</span>
+  </div>
 </div>

@@ -11,26 +11,27 @@
     </div>
   <% end %>
 
-  <div>
-    <div
-      class="return-reason-container"
-    >
+
+
       <template hidden data-nested-form-target="template">
         <%= form.simple_fields_for :reasons, Reason.new, child_index: 'NEW_RECORD' do |reason_fields| %>
           <%= render 'reason', f: reason_fields %>
         <% end %>
       </template>
 
-      <button type="button" data-action="nested-form#addAssociation" class="btn">
-        <i class="add-icon"></i> Add Return Reason
-      </button>
-      <%= form.simple_fields_for :reasons, @storefront.reasons.ordered do |reason_fields| %>
-        <%= render 'reason', f: reason_fields %>
-      <% end %>
-
-      <div hidden data-nested-form-target="addItem"></div>
-    </div>
-  </div>
+      <ul class="bg-slate-100 rounded-xl">
+        <li class="p-3 border-b	 border-neutral-300 text-blue-700 font-medium	">
+          <i class="fa fa-plus-circle fa-1x pe-3"></i> <i class="add-icon"></i> Add Return Reason
+        </li>
+        <%= form.simple_fields_for :reasons, @storefront.reasons.ordered do |reason_fields| %>
+          <li class="p-3 border-b border-neutral-300 flex items-center">
+            <i class="fa fa-bars text-neutral-300"></i>
+            <i class="px-3 fa <%= reason_fields.object.active ? "fa-eye text-blue-700" : "fa-eye-slash text-neutral-400" %>"></i>
+            <%= reason_fields.object.label %>
+            <span class="ml-auto text-blue-700">Edit</span>
+          </li>
+        <% end %>
+      </ul>
 
   <div>
     <div>

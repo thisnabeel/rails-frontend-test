@@ -1,0 +1,36 @@
+Arguments: 
+  /usr/local/bin/node /usr/local/bin/yarn add stimulus-turbo-streams
+
+PATH: 
+  /Users/rockystorm/.rvm/gems/ruby-3.2.2/bin:/Users/rockystorm/.rvm/gems/ruby-3.2.2@global/bin:/Users/rockystorm/.rvm/rubies/ruby-3.2.2/bin:/Users/rockystorm/.rvm/bin:/Users/rockystorm/.rbenv/shims:/Users/rockystorm/.rbenv/shims:/Users/rockystorm/.rbenv/shims:/Users/rockystorm/.rbenv/shims:/usr/local/sbin:/Library/Frameworks/Python.framework/Versions/3.12/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/opt/ImageMagick/bin:/Applications/Postgres.app/Contents/Versions/latest/bin:/Users/rockystorm/.rbenv/shims:/usr/local/sbin:/Library/Frameworks/Python.framework/Versions/3.12/bin:/Users/rockystorm/.cargo/bin
+
+Yarn version: 
+  1.13.0
+
+Node version: 
+  18.8.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/stimulus-turbo-streams: Not found
+      at params.callback [as _callback] (/usr/local/lib/node_modules/yarn/lib/cli.js:66255:18)
+      at self.callback (/usr/local/lib/node_modules/yarn/lib/cli.js:129397:22)
+      at Request.emit (node:events:513:28)
+      at Request.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:130369:10)
+      at Request.emit (node:events:513:28)
+      at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:130291:12)
+      at Object.onceWrapper (node:events:627:28)
+      at IncomingMessage.emit (node:events:525:35)
+      at endReadableNT (node:internal/streams/readable:1359:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+
+npm manifest: 
+  No manifest
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

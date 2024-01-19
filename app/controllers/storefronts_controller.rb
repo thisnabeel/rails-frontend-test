@@ -1,5 +1,6 @@
 class StorefrontsController < ApplicationController
-  before_action :set_storefront, only: %i[ show edit update destroy ]
+  before_action :set_storefront, only: %i[ show edit update destroy edit_reason]
+  skip_before_action :verify_authenticity_token, only: [:save_draft]
 
   # GET /storefronts or /storefronts.json
   def index
@@ -17,7 +18,54 @@ class StorefrontsController < ApplicationController
 
   # GET /storefronts/1/edit
   def edit
+    session[:drafting_reasons] = nil
   end
+
+  def edit_reason
+    list = session[:drafting_reasons]&.map { |r| Reason.new(r) }
+    @reason = list&.find { |reason| reason[:id] == params[:reason_id].to_i } || @storefront.reasons.find(params[:reason_id])
+    render turbo_stream: 
+      turbo_stream.update("edit-reason-modal", 
+        partial: "storefronts/modal", 
+        locals: { reason: @reason, storefront: @storefront }
+      )
+  end
+
+  def save_draft
+
+    reason_params = params[:reason]
+    storefront_id = reason_params[:storefront_id]
+
+    @storefront = Storefront.find(storefront_id)
+    drafting_reasons = load_drafting_reasons(storefront_id)
+
+    updated_drafting_reasons = drafting_reasons.map.with_index do |reason, index|
+      update_reason_attributes(reason, reason_params) if reason.id == reason_params[:id].to_i && reason_params
+      reason
+    end
+
+    session[:drafting_reasons] = updated_drafting_reasons
+
+    render turbo_stream: 
+      turbo_stream.update("reasons-list", 
+        partial: "storefronts/reasons", 
+        locals: { 
+          reasons: updated_drafting_reasons,
+          storefront: @storefront
+        }
+      )
+  end
+
+  def publish_draft
+    session[:drafting_reasons]&.each_with_index do |r, index| 
+      reason = Reason.find_or_create_by(id: r["id"])
+      puts reason.attributes
+      puts r[:code]
+      reason.update!(r)
+    end
+    render json: Storefront.find(params[:id]).reasons.ordered
+  end
+
 
   # POST /storefronts or /storefronts.json
   def create
@@ -58,6 +106,18 @@ class StorefrontsController < ApplicationController
   end
 
   private
+
+    def load_drafting_reasons(storefront_id)
+      session[:drafting_reasons]&.map { |r| Reason.new(r) } || @storefront.reasons.order(params[:reasons_order])
+    end
+
+    def update_reason_attributes(reason, params)
+      reason.assign_attributes(
+        label: params[:label],
+        code: params[:code],
+        active: params[:active]
+      )
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_storefront
       @storefront = Storefront.find(params[:id])

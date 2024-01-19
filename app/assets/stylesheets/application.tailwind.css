@@ -12,4 +12,19 @@
   .btn-danger {
     @apply py-2 px-4 bg-red-200;
   }
+  .btn-outline-danger {
+    @apply py-2 px-4 bg-white border-red-700 text-red-700 border-2 rounded-lg;
+  }
+
+  .btn-outline-warning {
+    @apply py-2 px-4 bg-white bg-yellow-500 text-black border-2 rounded-lg;
+  }
+
+  .fa.active {
+    @apply text-blue-700;
+  }
+
+  .fa.inactive {
+    @apply text-neutral-400;
+  }
 }

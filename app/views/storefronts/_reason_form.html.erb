@@ -1,0 +1,41 @@
+<div class="nested-form-wrapper" data-controller="eye">
+  <div class="dashboard-form-fields">
+    <%=
+      f.input :label,
+        label: 'Displayed reason',
+        required: true,
+        placeholder: 'Enter Displayed reason...',
+        hint: "Provide a friendly description for the reason that will be displayed to the customer.",
+        input_html: { class: 'rounded-lg bg-slate-200' },
+        hint_html: { class: 'font-light text-neutral-700' },
+        wrapper_html: {class: 'mb-6'}
+    %>
+    <%=
+      f.input :code,
+        label: 'Internal return code',
+        required: true,
+        placeholder: 'Enter Internal return code...',
+        hint: "For internal use only. Must be unique. To aid in analytics, we do not recommend changing the code once set.",
+        input_html: { class: 'rounded-lg bg-slate-200' },
+        hint_html: { class: 'font-light text-neutral-700' },
+        wrapper_html: {class: 'mb-6'}
+
+    %>
+
+
+    <div class="flex mb-8">
+      <div class="w-8">
+        <i data-action="click->eye#toggleCheckbox" class="fa fa-eye fa-2x" data-eye-target="icon"></i>
+      </div>
+      <div class="flex-grow pt-1 ps-4">
+        <div class="font-bold">Return Reason is Hidden</div>
+        <div class="font-light text-neutral-800">
+          When hidden, this return reason is not offered as an option to the customers. Click on the eye icon to make the return reason visible.
+        </div>
+      </div>
+
+    </div>
+
+    <%= f.hidden_field :active, data: { "eye-target": 'field' } %>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<ul data-controller="sortable" data-sortable-dragging-class="dragging" class="bg-slate-100 rounded-xl">
+  <li class="p-3 border-b border-neutral-300 text-blue-700 font-medium">
+    <i class="fa fa-plus-circle fa-1x pe-3"></i> <i class="add-icon"></i> Add Return Reason
+  </li>
+  <% reasons.each_with_index do |reason, index| %>
+    <li data-sortable-target="item" class="p-3 border-b border-neutral-300 flex items-center" data-index="<%= index + 1 %>" data-id="<%= reason.id %>">
+      <i class="fa fa-bars text-neutral-300"></i>
+      <i class="px-3 fa <%= reason.active ? "fa-eye text-blue-700" : "fa-eye-slash text-neutral-400" %>"></i>
+      <%= reason.label %>
+      <%# <span class="ml-auto text-blue-700" data-turbo-frame="storefront-frame" data-turbo-action="replace" data-turbo-frame-target="storefront-frame">
+      Edit</span> %>
+      <a href="<%= edit_reason_storefront_path(storefront, reason) %>"
+         class="ml-auto text-blue-700"
+      >Edit</a>
+    </li>
+  <% end %>
+</ul>

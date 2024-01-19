@@ -1,0 +1,25 @@
+<% if reason.present? %>
+<div data-modal-target="modal" class="fixed inset-0 bg-zinc-800 flex items-center justify-center z-20">
+  <div class="bg-white p-4 max-w-screen-md mx-auto rounded-xl">
+    <%= turbo_frame_tag "apple" %>
+    
+    <div class="text-xl font-bold p-2 pb-0">Edit Return Reason:</div>
+    <hr class="border-t border-gray-300 my-4">
+
+            <!-- Nested form for reasons -->
+            <%= simple_form_for reason, url: save_draft_storefront_path, html: { data: { "reason-target": 'form' } }  do |form| %>
+                <%= render 'reason_form', f: form %>
+
+                <div class="flex justify-between items-center mt-4">
+                    <button type="button" class="btn-outline-danger font-medium" data-action="nested-form#removeAssociation">Remove</button>
+                    <%= form.hidden_field :_destroy %>
+
+                    <%= form.hidden_field :id, value: reason.id %>
+                    <%= form.hidden_field :storefront_id, value: storefront.id %>
+
+                    <span class="btn-outline-warning font-bold" data-action="click->reason#save_draft">Continue</span>
+                </div>
+            <% end %>
+  </div>
+</div>
+<% end %>
